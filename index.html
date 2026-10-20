@@ -985,7 +985,7 @@ svg.ao-mark path:nth-of-type(2){animation-delay:.5s}svg.ao-mark path:nth-of-type
 .eyebrow{font:700 clamp(.84rem,.76rem + .34vw,1.02rem)/1.35 var(--sans);letter-spacing:.17em;text-transform:uppercase;gap:14px;margin-bottom:24px;
   color:var(--azure);background-image:linear-gradient(95deg,#1F72C9 0%,#0A2A52 58%,#8A6A2F 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 .eyebrow:before{width:34px;height:2px;opacity:1;background:linear-gradient(90deg,var(--gold),var(--gold2))!important}
-.bg-ink .eyebrow,.hero .eyebrow,.phero.img .eyebrow,.ao-hero .eyebrow,.ao-band .eyebrow,.ftr .eyebrow,.card.dk .eyebrow,.role-c.a .eyebrow{color:var(--sky2);background-image:linear-gradient(95deg,#F6E3B0 0%,#D9BC7E 42%,#A8D3F7 100%)}
+.vm-stats .eyebrow,.bg-ink .eyebrow,.hero .eyebrow,.phero.img .eyebrow,.ao-hero .eyebrow,.ao-band .eyebrow,.ftr .eyebrow,.card.dk .eyebrow,.role-c.a .eyebrow{color:var(--sky2);background-image:linear-gradient(95deg,#F6E3B0 0%,#D9BC7E 42%,#A8D3F7 100%)}
 .hero .eyebrow,.phero.img .eyebrow,.ao-hero .eyebrow{filter:drop-shadow(0 1px 6px rgba(3,14,32,.75))}
 /* small labels */
 .card .lab,.role-c .lab,.spec-panel .lab,.caps span,.offices .lab,.sgh,.group .tag,.ind span,.cmod .n,.tile .n,.pillar .n,.pc .n,.step .n{font-weight:600;font-size:.78rem}
@@ -1136,6 +1136,137 @@ body:after{animation:none!important}
 /* v14: LinkedIn / email buttons on every card; pending ones look the same but are not links yet */
 .sbtn.pend{cursor:default}
 .sbtn.pend:hover{background:transparent;color:var(--sky2);border-color:rgba(147,201,244,.45);transform:none}
+
+/* =====================================================================
+   v15: BRIGHTER HERO + VISION / MISSION / OBJECTIVES
+   ===================================================================== */
+/* brighter, bluer hero while keeping the copy readable */
+.hero.has-media .sky .veil{background:
+  linear-gradient(180deg,rgba(94,168,230,.18) 0%,rgba(94,168,230,0) 55%),
+  linear-gradient(90deg,rgba(7,30,61,.56) 0%,rgba(7,30,61,.28) 42%,rgba(7,30,61,0) 100%),
+  linear-gradient(180deg,rgba(7,30,61,.36) 0%,rgba(7,30,61,0) 26%,rgba(7,30,61,0) 70%,rgba(7,30,61,.5) 100%)}
+@media(max-width:760px){.hero.has-media .sky .veil{background:linear-gradient(180deg,rgba(7,30,61,.58) 0%,rgba(7,30,61,.42) 50%,rgba(7,30,61,.66) 100%)}}
+/* section */
+.vmo{background:linear-gradient(180deg,#F4F9FF 0%,#E8F2FC 48%,#F7FBFF 100%);overflow:hidden;isolation:isolate;padding-top:clamp(70px,7vw,120px)}
+.vmo-orb{position:absolute;border-radius:50%;z-index:-1;pointer-events:none;will-change:transform}
+.vmo-orb.o1{width:58vw;height:58vw;max-width:820px;max-height:820px;right:-14vw;top:-18vw;background:radial-gradient(closest-side,rgba(94,168,230,.28),rgba(94,168,230,0));animation:orb1 22s ease-in-out infinite alternate}
+.vmo-orb.o2{width:46vw;height:46vw;max-width:640px;max-height:640px;left:-16vw;bottom:-10vw;background:radial-gradient(closest-side,rgba(217,188,126,.22),rgba(217,188,126,0));animation:orb2 26s ease-in-out infinite alternate}
+@keyframes orb1{to{transform:translate3d(-6vw,5vw,0) scale(1.08)}}
+@keyframes orb2{to{transform:translate3d(7vw,-4vw,0) scale(1.1)}}
+.vm-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-bottom:clamp(56px,6vw,88px)}
+.vm-card{position:relative;border-radius:26px;padding:clamp(28px,3.4vw,48px);overflow:hidden;isolation:isolate;display:flex;flex-direction:column;transition:transform .7s var(--e-out),box-shadow .7s var(--e-out)}
+.vm-card.v{background:#fff;border:1px solid var(--ln2);box-shadow:0 30px 60px -44px rgba(10,42,82,.35)}
+.vm-card.m{background:linear-gradient(140deg,#0A2A52 0%,#123A6B 55%,#1C5799 100%);color:#C9D8EA;box-shadow:0 34px 70px -40px rgba(10,42,82,.7)}
+.vm-card:after{content:"";position:absolute;left:0;top:0;height:3px;width:100%;background:linear-gradient(90deg,var(--gold),var(--gold2),var(--sky));transform:scaleX(0);transform-origin:0 50%;transition:transform 1.2s var(--e-out) .25s}
+.vm-card.in:after{transform:scaleX(1)}
+.vm-card:before{content:"";position:absolute;top:0;left:-70%;width:45%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.22),transparent);transform:skewX(-18deg);transition:left 1.1s var(--e-out);pointer-events:none;z-index:2}
+.vm-card:hover:before{left:130%}
+.vm-card:hover{transform:translateY(-6px)}
+.vm-card.v:hover{box-shadow:0 40px 70px -40px rgba(10,42,82,.45)}
+.vm-ic{width:62px;height:62px;border-radius:18px;display:flex;align-items:center;justify-content:center;margin-bottom:26px;background:var(--mist2);color:var(--azure)}
+.vm-card.m .vm-ic{background:rgba(255,255,255,.08);color:var(--gold2);box-shadow:inset 0 0 0 1px rgba(217,188,126,.35)}
+.vm-ic svg{width:30px;height:30px}
+.vm-k{font:700 .8rem/1 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
+.vm-card.m .vm-k{color:var(--gold2)}
+.vm-card h3{font:300 clamp(1.32rem,1.1rem + .75vw,1.85rem)/1.38 var(--serif);letter-spacing:-.01em;color:var(--ink);margin:0 0 26px;text-wrap:pretty}
+.vm-card.m h3{color:#fff}
+.vm-pts{list-style:none;padding:0;margin:auto 0 0;display:flex;flex-direction:column;gap:10px;border-top:1px solid var(--ln);padding-top:20px}
+.vm-card.m .vm-pts{border-color:rgba(255,255,255,.14)}
+.vm-pts li{position:relative;padding-left:26px;font-size:.98rem;font-weight:500;color:var(--tx)}
+.vm-card.m .vm-pts li{color:#DCE7F4}
+.vm-pts li:before{content:"";position:absolute;left:0;top:.62em;width:12px;height:2px;background:var(--gold);border-radius:2px}
+.obj-head{margin-bottom:30px}
+.obj-head h3{font:300 clamp(1.6rem,1.3rem + 1.2vw,2.5rem)/1.12 var(--serif);color:var(--ink);letter-spacing:-.02em}
+.obj-head h3 em{font-style:italic;color:var(--azure)}
+.obj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:clamp(56px,6vw,88px)}
+.obj{position:relative;background:rgba(255,255,255,.9);border:1px solid var(--ln);border-radius:20px;padding:28px 26px 24px;display:flex;flex-direction:column;overflow:hidden;transition:transform .6s var(--e-out),box-shadow .6s var(--e-out),border-color .4s}
+.obj:after{content:"";position:absolute;inset:auto 0 0 0;height:3px;background:linear-gradient(90deg,var(--azure),var(--sky),var(--gold2));transform:scaleX(0);transform-origin:0 50%;transition:transform .7s var(--e-out)}
+.obj:hover{transform:translateY(-6px);border-color:var(--sky);box-shadow:0 34px 60px -40px rgba(10,42,82,.5)}
+.obj:hover:after{transform:scaleX(1)}
+.obj-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:22px}
+.obj-n{font:300 2.6rem/1 var(--serif);color:transparent;-webkit-text-stroke:1px var(--gold);letter-spacing:-.02em;transition:color .5s}
+.obj:hover .obj-n{color:var(--gold2)}
+.obj-ic{width:50px;height:50px;border-radius:14px;display:flex;align-items:center;justify-content:center;background:var(--mist2);color:var(--azure);transition:background .45s,color .45s,transform .6s var(--e-out)}
+.obj-ic svg{width:25px;height:25px}
+.obj:hover .obj-ic{background:var(--azure);color:#fff;transform:rotate(-6deg) scale(1.06)}
+.obj h4{font:400 1.32rem/1.25 var(--serif);color:var(--ink);margin:0 0 10px}
+.obj p{font-size:.95rem;color:var(--mut);margin:0 0 18px;flex:1}
+.obj-d{display:flex;gap:10px;align-items:flex-start;font:600 .8rem/1.45 var(--sans);color:var(--ink2);background:var(--mist);border-radius:12px;padding:11px 13px}
+.obj-d:before{content:"";flex:none;width:7px;height:7px;border-radius:50%;background:var(--gold);margin-top:.42em;box-shadow:0 0 0 4px rgba(195,159,90,.18)}
+/* line-drawing icons */
+.vm-ic svg>*,.obj-ic svg>*{stroke-dasharray:1 1;stroke-dashoffset:1}
+.rv.in .vm-ic svg>*,.rv.in .obj-ic svg>*{animation:vmdraw 1.7s var(--e-out) .35s forwards}
+@keyframes vmdraw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+/* opportunity band */
+.vm-stats{border-radius:28px;padding:clamp(28px,3.6vw,52px);background:linear-gradient(135deg,#071E3D 0%,#0E3365 60%,#17508F 100%);color:#C9D8EA;position:relative;overflow:hidden;isolation:isolate}
+.vm-stats:before{content:"";position:absolute;right:-12%;top:-60%;width:60%;aspect-ratio:1;border-radius:50%;background:radial-gradient(closest-side,rgba(217,188,126,.22),transparent);z-index:-1}
+.vm-stats-h{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:30px;padding-bottom:22px;border-bottom:1px solid rgba(255,255,255,.12)}
+.vm-stats-h .eyebrow{margin-bottom:0}
+.vm-stats-h b{font:300 clamp(1.3rem,1.1rem + .7vw,1.8rem)/1.2 var(--serif);color:#fff;font-weight:300}
+.vm-stats-g{display:grid;grid-template-columns:repeat(5,1fr);gap:0}
+.vm-stats-g .st{padding:6px 20px 6px 0;display:flex;flex-direction:column;gap:8px}
+.vm-stats-g .st+.st{padding-left:20px;border-left:1px solid rgba(255,255,255,.12)}
+.vm-stats-g b{font:300 clamp(1.7rem,1.3rem + 1.3vw,2.6rem)/1.05 var(--serif);background:linear-gradient(95deg,#F6E3B0,#D9BC7E 55%,#A8D3F7);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:var(--gold2);white-space:nowrap;font-variant-numeric:tabular-nums}
+.vm-stats-g span{font-size:.9rem;line-height:1.45;color:#DCE7F4}
+.vm-stats-g small{font:600 .66rem/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--gold2);margin-top:auto}
+.vm-note{margin-top:20px;max-width:none}
+@media(max-width:1100px){.vm-stats-g{grid-template-columns:repeat(3,1fr);row-gap:26px}.vm-stats-g .st:nth-child(4){border-left:0;padding-left:0}}
+@media(max-width:1000px){.obj-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:900px){.vm-grid{grid-template-columns:1fr}}
+@media(max-width:640px){.obj-grid{grid-template-columns:1fr}.vm-stats-g{grid-template-columns:1fr 1fr}.vm-stats-g .st,.vm-stats-g .st+.st{border-left:0;padding-left:0}.vm-stats-g b{white-space:normal}}
+@media(prefers-reduced-motion:reduce){.vmo-orb{animation:none}}
+
+/* =====================================================================
+   v17: PURPOSE SECTION, LIGHTWEIGHT MOTION ONLY
+   (no canvas, no infinite animations; hover + one-time reveal effects)
+   ===================================================================== */
+.vmo-orb{animation:none!important}
+/* cursor-follow highlight (same family as the objective cards) */
+.vm-card:before{left:0;top:0;width:100%;height:100%;transform:none;transition:opacity .45s var(--e-out);opacity:0;z-index:0;
+  background:radial-gradient(480px circle at var(--mx,50%) var(--my,50%),rgba(94,168,230,.16),transparent 46%)}
+.vm-card.m:before{background:radial-gradient(480px circle at var(--mx,50%) var(--my,50%),rgba(217,188,126,.20),transparent 46%)}
+.vm-card:hover:before{left:0;opacity:1}
+.vm-card>*{position:relative;z-index:1}
+.vm-card{transition:transform .5s var(--e-out),box-shadow .5s var(--e-out),border-color .4s}
+.vm-card:hover{transform:translateY(-6px)}
+.vm-card.v:hover{border-color:var(--sky);box-shadow:0 40px 70px -40px rgba(10,42,82,.45)}
+.vm-card.m:hover{box-shadow:0 44px 80px -40px rgba(10,42,82,.8),0 0 0 1px rgba(217,188,126,.35)}
+.vm-ic{transition:background .4s,color .4s,transform .5s var(--e-out)}
+.vm-card.v:hover .vm-ic{background:var(--azure);color:#fff;transform:rotate(-6deg) scale(1.06)}
+.vm-card.m:hover .vm-ic{background:var(--gold2);color:var(--deep);transform:rotate(-6deg) scale(1.06)}
+.vm-pts li{transition:transform .4s var(--e-out),color .3s}
+.vm-pts li:hover{transform:translateX(6px)}
+.vm-card.v .vm-pts li:hover{color:var(--azure)}
+.vm-card.m .vm-pts li:hover{color:var(--gold2)}
+.obj:before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .45s var(--e-out);
+  background:radial-gradient(380px circle at var(--mx,50%) var(--my,50%),rgba(94,168,230,.14),transparent 45%)}
+.obj:hover:before{opacity:1}
+.obj>*{position:relative;z-index:1}
+.obj{transition:transform .5s var(--e-out),box-shadow .5s var(--e-out),border-color .4s}
+/* text effects */
+.vmo .shead h2 em,.vmo .obj-head h3 em{background:linear-gradient(100deg,#1F72C9 0%,#3E8FDD 35%,#C39F5A 55%,#1F72C9 80%,#1F72C9 100%);background-size:240% 100%;background-position:100% 0;
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;padding-right:.08em}
+.vmo .rv.in h2 em,.vmo .rv.in h3 em{animation:vmsweep 2.2s var(--e-out) .35s both}
+@keyframes vmsweep{from{background-position:100% 0}to{background-position:0% 0}}
+.vm-k{display:inline-flex;align-items:center;gap:10px}
+.vm-k:before{content:"";width:0;height:2px;background:linear-gradient(90deg,var(--gold),var(--gold2));transition:width .9s var(--e-out) .3s}
+.vm-card.in .vm-k:before{width:26px}
+.obj h4{background-image:linear-gradient(var(--azure),var(--azure));background-size:0% 1px;background-repeat:no-repeat;background-position:0 100%;transition:background-size .55s var(--e-out),color .3s;align-self:flex-start;padding-bottom:3px}
+.obj:hover h4{color:var(--azure);background-size:100% 1px}
+.vm-stats-g .st{transition:transform .45s var(--e-out)}
+.vm-stats-g .st:hover{transform:translateY(-4px)}
+.vm-stats-g .st:hover span{color:#fff}
+/* opportunity band: richer dark gradient with light */
+.vm-stats{background:radial-gradient(70% 120% at 100% 0%,rgba(217,188,126,.20),transparent 60%),radial-gradient(60% 110% at 0% 100%,rgba(94,168,230,.22),transparent 60%),linear-gradient(135deg,#061A36 0%,#0B2D5C 55%,#164C8C 100%);
+  box-shadow:0 40px 80px -46px rgba(7,30,61,.8),inset 0 1px 0 rgba(255,255,255,.08)}
+.vm-stats:before{background:radial-gradient(closest-side,rgba(217,188,126,.26),transparent)}
+.vm-stats:after{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold2),var(--sky),transparent);opacity:.8;z-index:0}
+.vm-stats-h b{background:linear-gradient(95deg,#FFFFFF 0%,#DCEBFA 55%,#F3DFA8 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+
+/* v18: no cursor glow in the purpose section; fully dark opportunity band */
+.vm-card:before,.obj:before{display:none!important}
+.vm-stats{background:linear-gradient(135deg,#041329 0%,#071E3D 55%,#0A2950 100%)!important;box-shadow:0 40px 80px -46px rgba(4,19,41,.85)!important}
+.vm-stats:before,.vm-stats:after{display:none!important}
 </style>
 </head>
 <body>
@@ -1575,6 +1706,50 @@ const roleBlock=()=>`<div class="role">
   <div class="role-c b rv"><span class="lab">Registered intermediaries</span><h3>Regulated capital-market activities</h3><ul class="ticks">
    <li>Undertaken by appropriately registered intermediaries, as applicable</li><li>Such as merchant bankers, registrars, debenture trustees and other SEBI-registered entities</li><li>Appointed for the specific issue or transaction</li><li>We work alongside them and do not act in their place</li><li>All services subject to applicable laws and regulations</li></ul></div></div>`;
 
+
+/* ---------- Vision, mission & objectives (home page + PDFs) ----------
+   Market figures: Bluesky Capital ACS market research, October 2026 (sources as cited).
+   Scenario figures are the author's base-case planning scenarios, not forecasts. */
+const PURPOSE={
+  lead:"India&rsquo;s next decade of growth will be built by companies that are not listed yet. Our purpose is to help them get there, and to go further.",
+  vision:"To be India&rsquo;s most trusted capital-markets and strategic advisory partner for growing enterprises, helping ambitious Indian SMEs become listed, well-governed and globally competitive companies.",
+  visionPts:["More Indian SMEs listed and investor-ready","SME leaders graduating to the Main Board","Indian businesses expanding and acquiring globally"],
+  mission:"To open India&rsquo;s capital markets to the businesses that drive its growth. We prepare SMEs and mid-market companies for listing, connect them with the right equity, private and debt capital, and guide their expansion and acquisitions beyond India&rsquo;s borders, with discipline, transparency and alongside appropriately registered intermediaries.",
+  missionPts:["Readiness and listing support, SME and Main Board","Access to private, institutional and debt capital","Cross-border growth, M&amp;A and strategic partnerships"],
+  objectives:[
+    {t:"Take SMEs to the capital markets",p:"Prepare growing companies for SME and Main Board listings, from readiness and structuring to coordination with the registered intermediaries appointed for the issue.",d:"~2,980 SME IPOs estimated over FY27&ndash;FY36*",ic:'<path pathLength="1" d="M3 17l6-6 4 4 8-8"/><path pathLength="1" d="M15 7h6v6"/>'},
+    {t:"Help SMEs graduate to the Main Board",p:"Support listed SMEs on governance, scale and compliance so they can migrate to the Main Board and reach a wider investor base.",d:"365 of 1,496 SME-listed companies have migrated so far (SEBI, Jul 2026)",ic:'<path pathLength="1" d="M4 20h4v-5H4zM10 20h4V10h-4zM16 20h4V4h-4z"/>'},
+    {t:"Take Indian businesses global",p:"Advise on international expansion, inbound investment and outbound acquisitions, so Indian companies can compete and grow in global markets.",d:"Outbound deals: 84% of India&rsquo;s M&amp;A value in Q2 2026 (Grant Thornton Bharat)",ic:'<circle pathLength="1" cx="12" cy="12" r="9"/><path pathLength="1" d="M3 12h18M12 3c3 3.2 3 14.8 0 18M12 3c-3 3.2-3 14.8 0 18"/>'},
+    {t:"Drive growth through M&amp;A",p:"Help promoters and boards acquire, sell, merge or partner, with disciplined valuation, diligence coordination and negotiation support.",d:"US$86.9 bn of India-linked M&amp;A in H1 2026, up 31% (LSEG)",ic:'<path pathLength="1" d="M6 3v5a6 6 0 0 0 6 6 6 6 0 0 1 6 6v1"/><path pathLength="1" d="M18 3v5a6 6 0 0 1-6 6"/><path pathLength="1" d="M3 6l3-3 3 3M15 6l3-3 3 3"/>'},
+    {t:"Connect businesses with the right capital",p:"Link companies with private equity, family offices, institutional investors and debt providers through permitted introductions.",d:"&#8377;19.80 lakh cr raised by Indian corporates in CY2025 (Prime Database)",ic:'<path pathLength="1" d="M10 14a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path pathLength="1" d="M14 10a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/>'},
+    {t:"Raise the bar on governance and research",p:"Bring research-led analysis and institutional-grade governance to every mandate, so clients are ready for investor and regulatory scrutiny.",d:"Research-led, compliance-first in every engagement",ic:'<path pathLength="1" d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/><path pathLength="1" d="M8.5 12l2.5 2.5 4.5-5"/>'}
+  ],
+  stats:[
+    {to:0.3,dec:1,suf:"%",v:"0.3%",l:"of India&rsquo;s ~21 lakh active companies are listed",src:"MCA data, May 2026"},
+    {to:2980,pre:"~",v:"~2,980",l:"SME IPOs estimated over FY27&ndash;FY36",src:"Base case*"},
+    {to:1680,pre:"~",v:"~1,680",l:"Main Board IPOs estimated over FY27&ndash;FY36",src:"Base case*"},
+    {to:31.9,dec:1,pre:"&#8377;",suf:" lakh cr",v:"&#8377;31.9 lakh cr",l:"Main Board IPO money estimated over FY27&ndash;FY36",src:"Base case*"},
+    {to:86.9,dec:1,pre:"US$",suf:" bn",v:"US$86.9 bn",l:"India-linked M&amp;A in H1 2026, up 31%",src:"LSEG"}
+  ],
+  note:"*Base-case planning scenarios from Bluesky Capital ACS market research (October 2026). Illustrative only; not forecasts, investment research or investment advice. Third-party figures as cited."
+};
+const ICO_EYE='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path pathLength="1" d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle pathLength="1" cx="12" cy="12" r="3.2"/></svg>';
+const ICO_TARGET='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle pathLength="1" cx="11" cy="13" r="8"/><circle pathLength="1" cx="11" cy="13" r="4"/><path pathLength="1" d="M11 13l9-9M16 4h4v4"/></svg>';
+const purposeBlock=()=>`
+<section class="sec vmo" id="purpose"><div class="vmo-orb o1" aria-hidden="true"></div><div class="vmo-orb o2" aria-hidden="true"></div><div class="wrap">
+ <div class="shead rv"><div><span class="eyebrow">Our Purpose</span><h2>Vision, Mission <em>&amp; Objectives.</em></h2></div><p>${PURPOSE.lead}</p></div>
+ <div class="vm-grid">
+  <article class="vm-card v rv"><div class="vm-ic">${ICO_EYE}</div><span class="vm-k">Our Vision</span><h3>${PURPOSE.vision}</h3><ul class="vm-pts">${PURPOSE.visionPts.map(x=>`<li>${x}</li>`).join("")}</ul></article>
+  <article class="vm-card m rv"><div class="vm-ic">${ICO_TARGET}</div><span class="vm-k">Our Mission</span><h3>${PURPOSE.mission}</h3><ul class="vm-pts">${PURPOSE.missionPts.map(x=>`<li>${x}</li>`).join("")}</ul></article>
+ </div>
+ <div class="obj-head rv"><span class="eyebrow">Our Objectives</span><h3>Six objectives that <em>guide every mandate.</em></h3></div>
+ <div class="obj-grid">${PURPOSE.objectives.map((o,i)=>`<article class="obj rv"><div class="obj-top"><span class="obj-n">${pad(i+1)}</span><span class="obj-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${o.ic}</svg></span></div><h4>${o.t}</h4><p>${o.p}</p><span class="obj-d">${o.d}</span></article>`).join("")}</div>
+ <div class="vm-stats rv"><div class="vm-stats-h"><span class="eyebrow">The Opportunity Ahead</span><b>Where India&rsquo;s capital markets are heading</b></div>
+  <div class="vm-stats-g">${PURPOSE.stats.map(x=>`<div class="st"><b class="cnt" data-to="${x.to}" data-dec="${x.dec||0}" data-pre="${x.pre||""}" data-suf="${x.suf||""}">${x.v}</b><span>${x.l}</span><small>${x.src}</small></div>`).join("")}</div>
+ </div>
+ <p class="fine rv vm-note">${PURPOSE.note}</p>
+</div></section>`;
+
 /* ---------- HOME ---------- */
 function home(){
   const tk=[...Object.values(INS).map(x=>x.title),"Mergers & Acquisitions","Unlisted Securities","Valuation & Research"].map(t=>`<span>${t}</span>`).join("");
@@ -1594,6 +1769,7 @@ function home(){
  <div class="place" id="place" aria-hidden="true"></div>
 </section>
 <div class="ticker" aria-hidden="true"><div class="track">${tk}${tk}</div></div>
+${purposeBlock()}
 
 <section class="sec tight"><div class="wrap"><div class="caps rv">
  <div><span>Capital Markets</span><b>IPO, FPO, rights &amp; preferential</b></div>
@@ -2123,7 +2299,7 @@ function doRender(){
   $$("#nav .tb[data-k]").forEach(x=>x.classList.toggle("on",x.dataset.k===r.key));
   $("#hdr").classList.toggle("light",r.key!=="home"&&!$("#main .phero.img")&&!$("#main .ao-hero"));
   closeMenu(); window.scrollTo(0,0);
-  if(r.key==="home"){initSpectrum();initHeroVideo()}
+  if(r.key==="home"){initSpectrum();initHeroVideo();counters()}
   initForms(); stagger(); reveal(); onScroll();
   const sa=$("#main canvas.svc-anim"); if(sa) SVC_ANIM.start(sa,sa.dataset.mode); else SVC_ANIM.stop();
   const h1=$("#main h1"); if(h1&&r.key!=="home"&&document.activeElement&&document.activeElement!==document.body){ $("#main").focus({preventScroll:true}) }
@@ -2178,6 +2354,14 @@ function initHeroVideo(){
   if("IntersectionObserver" in window){new IntersectionObserver(([e])=>{if(v.dataset.user==="1"||!v.src)return;e.isIntersecting?v.play().catch(()=>{}):v.pause()}).observe(hero)}
 }
 let io;
+let cio=null;
+function counters(){if(cio)cio.disconnect();const els=$$(".cnt[data-to]");if(!els.length)return;
+  const fmt=(el,v)=>{const dec=+el.dataset.dec||0;el.innerHTML=el.dataset.pre+(dec?v.toFixed(dec):Math.round(v).toLocaleString("en-IN"))+el.dataset.suf};
+  if(reduce||!("IntersectionObserver" in window))return;
+  els.forEach(el=>fmt(el,0));
+  cio=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;cio.unobserve(e.target);const el=e.target,to=+el.dataset.to,t0=performance.now(),D=1700;
+    const stp=t=>{const k=Math.min(1,(t-t0)/D),ez=1-Math.pow(1-k,3);fmt(el,to*ez);if(k<1)requestAnimationFrame(stp)};requestAnimationFrame(stp)}),{threshold:.4});
+  els.forEach(el=>cio.observe(el))}
 function reveal(){
   if(io) io.disconnect();
   const els=$$(".rv");
@@ -2546,6 +2730,22 @@ const PDFX=(()=>{
     F.para("We are not merchant bankers, and we are clear about that. Regulated capital-market activities are undertaken by appropriately registered intermediaries, as applicable.");
     F.label("What defines us");F.rows(PILLARS);F.label("Core capabilities");F.rows(CAPS)}
 
+  function purpose(){slide("light");const top=head("Our purpose","Vision, Mission <em>&amp; Objectives.</em>");const g=8,w=(W-2*M-g)/2,h=67;let sz=11;while(sz>8.6&&[PURPOSE.vision,PURPOSE.mission].some(t=>wrap(t,w-16,sz,"times").length*LH(sz,1.3)>h-45))sz-=.2;
+    [[PURPOSE.vision,"Our vision",false,PURPOSE.visionPts],[PURPOSE.mission,"Our mission",true,PURPOSE.missionPts]].forEach(([t,lab,dk,pts],i)=>{const x=M+i*(w+g);rrect(dk?C.ink:C.mist,x,top,w,h,3,dk?null:C.ln);
+      fill(C.gold,x+8,top+8.6,9,.6);T(lab.toUpperCase(),x+20,top+7.4,{size:7.6,style:"bold",color:dk?C.gold2:C.azure,cs:.4});
+      const ls=wrap(t,w-16,sz,"times");lines(ls,x+8,top+15,sz,dk?C.white:C.ink,{fam:"times",f:1.3});
+      let py=top+h-6-pts.length*5.4;hline(dk?C.dline:C.ln2,x+8,x+w-8,py-3);pts.forEach(pt=>{fill(C.gold,x+8,py+1.5,3.2,.5);T(pt,x+14,py,{size:8.4,color:dk?C.soft:C.tx});py+=5.4})});
+    let y=top+h+6;const pH=BOT-8-y;rrect(C.deep,M,y,W-2*M,pH,3);eyebrow("The opportunity ahead",M+7,y+5,C.gold2);
+    const n=PURPOSE.stats.length,sg=4,sx=M+7,sw=(W-2*M-14-(n-1)*sg)/n,sy=y+12;
+    PURPOSE.stats.forEach((st,i)=>{const x=sx+i*(sw+sg);if(i)d.setDrawColor(...C.dline),d.setLineWidth(.25),d.line(x-sg/2,sy,x-sg/2,y+pH-4);
+      T(st.v,x+(i?2:0),sy,{fam:"times",size:15,color:C.gold2});lines(wrap(st.l,sw-4,7.2).slice(0,3),x+(i?2:0),sy+8,7.2,C.soft,{f:1.3});T(clean(st.src).toUpperCase(),x+(i?2:0),y+pH-7,{size:5.8,style:"bold",color:C.gold2,cs:.3})});
+    lines(wrap(PURPOSE.note,W-2*M,6.4),M,y+pH+1.6,6.4,C.mut,{f:1.3});
+    slide("mist");const t2=head("Our objectives","Six Objectives That <em>Guide Every Mandate.</em>");const cg=7,cw=(W-2*M-2*cg)/3,ch=(BOT-t2-cg)/2;
+    PURPOSE.objectives.forEach((o,i)=>{const x=M+(i%3)*(cw+cg),yy=t2+Math.floor(i/3)*(ch+cg);rrect(C.white,x,yy,cw,ch,2.6,C.ln);fill(C.gold,x+6,yy,cw-12,.7);
+      T(pad(i+1),x+6,yy+5,{fam:"times",size:15,color:C.gold});const tl=wrap(o.t,cw-12,11.4,"times");let k=yy+14;k+=lines(tl,x+6,k,11.4,C.ink,{fam:"times",f:1.15})+2;
+      const dl=wrap(o.d,cw-12,7.2,"helvetica","bold");const room=yy+ch-6-dl.length*LH(7.2,1.3)-3-k;let ps=8.8,pl=wrap(o.p,cw-12,ps);while(pl.length*LH(ps,1.4)>room&&ps>7){ps-=.3;pl=wrap(o.p,cw-12,ps)}
+      lines(pl,x+6,k,ps,C.tx,{f:1.4});lines(dl,x+6,yy+ch-5-dl.length*LH(7.2,1.3),7.2,C.azure,{style:"bold",f:1.3})})}
+
   function role(){slide("mist");const top=head("Our role","Clear About What We Do, <em>and What We Don&rsquo;t.</em>");const g=8,w=(W-2*M-g)/2,h=BOT-top;
     [[ROLE_A,"Bluesky Capital ACS","Advisory & transaction support",true],[ROLE_B,"Registered intermediaries","Regulated capital-market activities",false]].forEach(([arr,lab,ti,dk],i)=>{
       const x=M+i*(w+g);rrect(dk?C.ink:C.white,x,top,w,h,3,dk?null:C.ln);T(lab.toUpperCase(),x+8,top+8,{size:7,style:"bold",color:dk?C.sky2:C.azure,cs:.4});
@@ -2680,14 +2880,14 @@ const PDFX=(()=>{
     try{d.setProperties({title,subject:SITE.tagline,author:"Bluesky Capital ACS",creator:"Bluesky Capital ACS"})}catch(e){}}
 
   async function brochure(){ui("Downloading brochure");await loadLogo();newDoc("Bluesky Capital ACS - Corporate Brochure");
-    const S=[["Cover",()=>cover("Corporate Brochure")],["About",about],["Our role",role],["Leadership",leadership],["Strategic partner",partner],["Services",servicesTable],["Capital spectrum",spectrum],
+    const S=[["Cover",()=>cover("Corporate Brochure")],["About",about],["Vision & mission",purpose],["Our role",role],["Leadership",leadership],["Strategic partner",partner],["Services",servicesTable],["Capital spectrum",spectrum],
       ["Industries",industriesGrid],["Approach",lifecycle],["Principles",principles],["Global Alpha One",alphaOne],["Contact",contact]];
     for(let i=0;i<S.length;i++){step(S[i][0],i/S.length);await tick();await S[i][1]()}footers();deliver("Bluesky-Capital-ACS-Brochure.pdf")}
 
   async function complete(){ui("Downloading complete information");await loadLogo();newDoc("Bluesky Capital ACS - Complete Information");
     const toc=[];let sec=0;const pn=()=>PAGES.length+1;const S=[];
     const sect=(title,desc,list)=>S.push({sect:true,title,desc,list});
-    sect("The Firm","Who we are, how we work and the people behind every mandate.",[["About the firm",about],["Our role",role],["Principles & philosophy",principles],["Our approach",approach],["Transaction lifecycle",lifecycle],["Governance",governance],["Leadership",leadership],["Strategic partner",partner],["Global Alpha One",alphaOne]]);
+    sect("The Firm","Who we are, how we work and the people behind every mandate.",[["About the firm",about],["Vision, mission & objectives",purpose],["Our role",role],["Principles & philosophy",principles],["Our approach",approach],["Transaction lifecycle",lifecycle],["Governance",governance],["Leadership",leadership],["Strategic partner",partner],["Global Alpha One",alphaOne]]);
     sect("Services &amp; Instruments","Capital markets, private capital, M&amp;A, debt and hybrid instruments, unlisted securities, valuation and market research, with transaction-level detail for each instrument.",[["Services overview",servicesTable],...SVC_ORDER.map(k=>[SVC[k].n,()=>service(k)]),["Capital spectrum",spectrum],...Object.keys(INS).map(k=>[INS[k].title,()=>instrument(k)])]);
     sect("Industries","Financing and transaction considerations across the sectors we follow.",[["Industries overview",industriesGrid],...IND_ORDER.map(k=>[IND[k].n,()=>industry(k)])]);
     sect("Network, Contact &amp; Legal","How businesses, investors and professionals can work with us, our offices, and important legal information.",[["Network & careers",network],["Contact & offices",contact],["Disclosures & policies",legalPages]]);
@@ -2782,7 +2982,7 @@ document.addEventListener("click",e=>{
 
 /* staggered indices for grouped reveals; mark finished reveals so hover transitions take over */
 function stagger(){
-  const groups=".groups,.cmods,.inds,.tiles,.team,.instr,.rel,.principles,.pillars,.cats,.slist,.role,.caps";
+  const groups=".obj-grid,.vm-grid,.groups,.cmods,.inds,.tiles,.team,.instr,.rel,.principles,.pillars,.cats,.slist,.role,.caps";
   $$(groups).forEach(g=>{let i=0;[...g.children].forEach(c=>{if(c.classList.contains("rv")){c.style.setProperty("--i",i++)}})});
 }
 
