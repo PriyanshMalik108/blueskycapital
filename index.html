@@ -2783,13 +2783,22 @@ const PDFX=(()=>{
     F.para("Bluesky Capital ACS is not a merchant banker, stock broker, investment adviser, portfolio manager or other SEBI-registered intermediary, and does not represent itself as one. Where a transaction requires such an intermediary, it is undertaken by the entity appointed for that purpose.");
     F.label("Standards");F.rows([["Engagement terms","Each mandate is governed by written terms setting out scope, responsibilities and limitations."],["Conflicts of interest","Potential conflicts are identified and addressed before a mandate is accepted."],["Confidentiality","Client information is used only for the purpose of the engagement and shared on a need-to-know basis."],["Legal entity","The contracting legal entity, registered office and registration details will be published once confirmed."]])}
 
-  async function leadership(){slide("mist");const top=head("Leadership","The People Behind <em>Every Mandate.</em>");const PEOPLE=[...homeLeaders(),...TEAM.filter(m=>m.group==="office")];const n=PEOPLE.length,g=n>5?5:6,w=(W-2*M-(n-1)*g)/n;const ph=w;
-    for(let i=0;i<PEOPLE.length;i++){const m=PEOPLE[i],x=M+i*(w+g);const im=await photo("team-"+m.k,IMG["team-"+m.k],1,600,.35);rrect(C.white,x,top,w,ph+31,2.4,C.ln);pic(im,x,top,w,ph);
-      T(m.group==="lead"?"LEADERSHIP":"EXECUTIVE OFFICE",x+3.5,top+ph+3.2,{size:5.8,style:"bold",color:m.group==="lead"?C.gold:C.azure,cs:.35});
+  /* draw a centred row of profile cards; returns the card height */
+  async function peopleRow(P,top,maxW,tagFn){const n=P.length,g=6,w=Math.min(maxW,(W-2*M-(n-1)*g)/n),x0=M+(W-2*M-(n*w+(n-1)*g))/2,ph=w;
+    for(let i=0;i<n;i++){const m=P[i],x=x0+i*(w+g);const im=await photo("team-"+m.k,IMG["team-"+m.k],1,600,.35);rrect(C.white,x,top,w,ph+31,2.4,C.ln);pic(im,x,top,w,ph);
+      const tg=tagFn(m);T(tg[0],x+3.5,top+ph+3.2,{size:5.8,style:"bold",color:tg[1],cs:.35});
       const nl=wrap(m.name,w-7,10.4,"times");lines(nl.slice(0,2),x+3.5,top+ph+7.6,10.4,C.ink,{fam:"times",f:1.15});lines(wrap(m.role,w-7,7.2).slice(0,3),x+3.5,top+ph+8+nl.slice(0,2).length*LH(10.4,1.15),7.2,C.mut,{f:1.3});
       let lx=x+3.5;const ly=top+ph+25.6;if(m.linkedin){const tw=T("LinkedIn",lx,ly,{size:6.6,style:"bold",color:C.azure});try{d.link(lx,ly-.6,tw,3.6,{url:m.linkedin})}catch(e){}lx+=tw+4}
       if(m.email){const tw=T("Email",lx,ly,{size:6.6,style:"bold",color:C.azure});try{d.link(lx,ly-.6,tw,3.6,{url:"mailto:"+m.email})}catch(e){}}}
-    lines(wrap("Bluesky Capital ACS is led by its founders, supported by its strategic partner and a dedicated executive office. Our founders lead the firm's strategy, client relationships and transaction mandates.",W-2*M,9.4),M,top+ph+39,9.4,C.tx,{f:1.45})}
+    return ph+31}
+  /* PDF leadership: home-page line-up plus Piyush Choudhary in 5th place (after Mohammad Afsar) */
+  function pdfLeaders(){const L=homeLeaders().slice();const piy=TEAM.find(m=>m.k==="piyush");if(piy&&!L.find(m=>m.k==="piyush")){const ix=L.findIndex(m=>m.k==="afsar");L.splice(ix<0?L.length:ix+1,0,piy)}return L}
+  async function leadership(){slide("mist");const top=head("Leadership","The People Behind <em>Every Mandate.</em>");
+    const h=await peopleRow(pdfLeaders(),top,70,()=>["LEADERSHIP",C.gold]);
+    lines(wrap("Bluesky Capital ACS is led by its founders, supported by its strategic partner and a dedicated executive office. Our founders lead the firm's strategy, client relationships and transaction mandates.",W-2*M,9.4),M,top+h+8,9.4,C.tx,{f:1.45})}
+  async function teamMembers(){const P=TEAM.filter(m=>m.group==="office");if(!P.length)return;slide("light");const top=head("Our team","Team <em>Members.</em>");
+    const h=await peopleRow(P,top,62,()=>["TEAM MEMBER",C.azure]);
+    lines(wrap("Our executive office supports the leadership team across the firm's day-to-day work.",W-2*M,9.4),M,top+h+8,9.4,C.tx,{f:1.45})}
 
   async function partner(){const a=ADVISORS[0];if(!a)return;slide("dark");const top=head("Strategic partner","Strategic <em>Partnership.</em>");const s=BOT-top;
     const im=await photo("team-"+a.k,IMG["team-"+a.k],1,700,.35);pic(im,M,top,s,s);const x=M+s+12,w=W-M-x;
@@ -2889,14 +2898,14 @@ const PDFX=(()=>{
     try{d.setProperties({title,subject:SITE.tagline,author:"Bluesky Capital ACS",creator:"Bluesky Capital ACS"})}catch(e){}}
 
   async function brochure(){ui("Downloading brochure");await loadLogo();newDoc("Bluesky Capital ACS - Corporate Brochure");
-    const S=[["Cover",()=>cover("Corporate Brochure")],["About",about],["Vision & mission",purpose],["Our role",role],["Leadership",leadership],["Strategic partner",partner],["Services",servicesTable],["Capital spectrum",spectrum],
+    const S=[["Cover",()=>cover("Corporate Brochure")],["About",about],["Vision & mission",purpose],["Our role",role],["Leadership",leadership],["Team members",teamMembers],["Strategic partner",partner],["Services",servicesTable],["Capital spectrum",spectrum],
       ["Industries",industriesGrid],["Approach",lifecycle],["Principles",principles],["Global Alpha One",alphaOne],["Contact",contact]];
     for(let i=0;i<S.length;i++){step(S[i][0],i/S.length);await tick();await S[i][1]()}footers();deliver("Bluesky-Capital-ACS-Brochure.pdf")}
 
   async function complete(){ui("Downloading complete information");await loadLogo();newDoc("Bluesky Capital ACS - Complete Information");
     const toc=[];let sec=0;const pn=()=>PAGES.length+1;const S=[];
     const sect=(title,desc,list)=>S.push({sect:true,title,desc,list});
-    sect("The Firm","Who we are, how we work and the people behind every mandate.",[["About the firm",about],["Vision, mission & objectives",purpose],["Our role",role],["Principles & philosophy",principles],["Our approach",approach],["Transaction lifecycle",lifecycle],["Governance",governance],["Leadership",leadership],["Strategic partner",partner],["Global Alpha One",alphaOne]]);
+    sect("The Firm","Who we are, how we work and the people behind every mandate.",[["About the firm",about],["Vision, mission & objectives",purpose],["Our role",role],["Principles & philosophy",principles],["Our approach",approach],["Transaction lifecycle",lifecycle],["Governance",governance],["Leadership",leadership],["Team members",teamMembers],["Strategic partner",partner],["Global Alpha One",alphaOne]]);
     sect("Services &amp; Instruments","Capital markets, private capital, M&amp;A, debt and hybrid instruments, unlisted securities, valuation and market research, with transaction-level detail for each instrument.",[["Services overview",servicesTable],...SVC_ORDER.map(k=>[SVC[k].n,()=>service(k)]),["Capital spectrum",spectrum],...Object.keys(INS).map(k=>[INS[k].title,()=>instrument(k)])]);
     sect("Industries","Financing and transaction considerations across the sectors we follow.",[["Industries overview",industriesGrid],...IND_ORDER.map(k=>[IND[k].n,()=>industry(k)])]);
     sect("Network, Contact &amp; Legal","How businesses, investors and professionals can work with us, our offices, and important legal information.",[["Network & careers",network],["Contact & offices",contact],["Disclosures & policies",legalPages]]);
