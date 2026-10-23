@@ -1267,6 +1267,10 @@ body:after{animation:none!important}
 .vm-card:before,.obj:before{display:none!important}
 .vm-stats{background:linear-gradient(135deg,#041329 0%,#071E3D 55%,#0A2950 100%)!important;box-shadow:0 40px 80px -46px rgba(4,19,41,.85)!important}
 .vm-stats:before,.vm-stats:after{display:none!important}
+
+/* v19: equal card footers in a row */
+.pcard:not(.adv) .meta{padding-bottom:16px}
+.pcard:not(.adv) .ft{margin-top:auto}
 </style>
 </head>
 <body>
@@ -1935,7 +1939,12 @@ const personCard=(m,i)=>`<article class="pcard rv" style="--i:${i}">
   <div class="meta"><h3>${m.name}</h3><span class="rl">${m.role}</span></div>
   <div class="ft"><span>Bluesky Capital ACS</span><div class="soc">${m.linkedin?`<a class="sbtn" href="${m.linkedin}" target="_blank" rel="noopener noreferrer" aria-label="${esc(m.name)} on LinkedIn (opens in a new tab)" title="LinkedIn">${ICON_LI}</a>`:`<span class="sbtn pend" role="img" aria-label="LinkedIn profile coming soon" title="LinkedIn profile coming soon">${ICON_LI}</span>`}${m.email?`<a class="sbtn" href="mailto:${m.email}" aria-label="Email ${esc(m.name)}" title="${esc(m.email)}">${ICON_MAIL}</a>`:`<span class="sbtn pend" role="img" aria-label="Email coming soon" title="Email coming soon">${ICON_MAIL}</span>`}</div></div>
 </article>`;
-const teamBlock=(withOffice=true)=>`<div class="team">${TEAM.filter(m=>m.group==="lead").map(personCard).join("")}</div>
+/* TEMPORARY: home page + PDFs show this leadership line-up (keys from TEAM / ADVISORS). The Leadership page still shows the full TEAM.
+   To revert, set HOME_LEADERS to null. */
+const HOME_LEADERS=["shakeel","istakhar","priyansh","afsar"];
+const LEADER_ROLE_OVERRIDE={istakhar:"Co-Founder & Strategic Partner"};
+const homeLeaders=()=>HOME_LEADERS?HOME_LEADERS.map(k=>{const m=TEAM.find(x=>x.k===k)||ADVISORS.find(x=>x.k===k);return m?{...m,group:"lead",role:LEADER_ROLE_OVERRIDE[k]||m.role}:null}).filter(Boolean):TEAM.filter(m=>m.group==="lead");
+const teamBlock=(withOffice=true)=>`<div class="team">${(withOffice?TEAM.filter(m=>m.group==="lead"):homeLeaders()).map(personCard).join("")}</div>
  ${withOffice?`<div class="sgh rv" style="margin-top:56px">Executive Office</div><div class="team office">${TEAM.filter(m=>m.group==="office").map(personCard).join("")}</div>`:""}`;
 
 const advisorCard=(m,i)=>`<article class="pcard adv rv" style="--i:${i}" aria-label="Strategic Partner: ${esc(m.name)}">
@@ -2774,8 +2783,8 @@ const PDFX=(()=>{
     F.para("Bluesky Capital ACS is not a merchant banker, stock broker, investment adviser, portfolio manager or other SEBI-registered intermediary, and does not represent itself as one. Where a transaction requires such an intermediary, it is undertaken by the entity appointed for that purpose.");
     F.label("Standards");F.rows([["Engagement terms","Each mandate is governed by written terms setting out scope, responsibilities and limitations."],["Conflicts of interest","Potential conflicts are identified and addressed before a mandate is accepted."],["Confidentiality","Client information is used only for the purpose of the engagement and shared on a need-to-know basis."],["Legal entity","The contracting legal entity, registered office and registration details will be published once confirmed."]])}
 
-  async function leadership(){slide("mist");const top=head("Leadership","The People Behind <em>Every Mandate.</em>");const n=TEAM.length,g=n>5?5:6,w=(W-2*M-(n-1)*g)/n;const ph=w;
-    for(let i=0;i<TEAM.length;i++){const m=TEAM[i],x=M+i*(w+g);const im=await photo("team-"+m.k,IMG["team-"+m.k],1,600,.35);rrect(C.white,x,top,w,ph+31,2.4,C.ln);pic(im,x,top,w,ph);
+  async function leadership(){slide("mist");const top=head("Leadership","The People Behind <em>Every Mandate.</em>");const PEOPLE=[...homeLeaders(),...TEAM.filter(m=>m.group==="office")];const n=PEOPLE.length,g=n>5?5:6,w=(W-2*M-(n-1)*g)/n;const ph=w;
+    for(let i=0;i<PEOPLE.length;i++){const m=PEOPLE[i],x=M+i*(w+g);const im=await photo("team-"+m.k,IMG["team-"+m.k],1,600,.35);rrect(C.white,x,top,w,ph+31,2.4,C.ln);pic(im,x,top,w,ph);
       T(m.group==="lead"?"LEADERSHIP":"EXECUTIVE OFFICE",x+3.5,top+ph+3.2,{size:5.8,style:"bold",color:m.group==="lead"?C.gold:C.azure,cs:.35});
       const nl=wrap(m.name,w-7,10.4,"times");lines(nl.slice(0,2),x+3.5,top+ph+7.6,10.4,C.ink,{fam:"times",f:1.15});lines(wrap(m.role,w-7,7.2).slice(0,3),x+3.5,top+ph+8+nl.slice(0,2).length*LH(10.4,1.15),7.2,C.mut,{f:1.3});
       let lx=x+3.5;const ly=top+ph+25.6;if(m.linkedin){const tw=T("LinkedIn",lx,ly,{size:6.6,style:"bold",color:C.azure});try{d.link(lx,ly-.6,tw,3.6,{url:m.linkedin})}catch(e){}lx+=tw+4}
